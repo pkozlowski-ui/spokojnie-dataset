@@ -1,0 +1,448 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "spokojnie open dataset (records.json)",
+ "type": "object",
+ "required": [
+  "dataset",
+  "format_version",
+  "generated_on",
+  "licensing",
+  "sources",
+  "records",
+  "disclaimer"
+ ],
+ "properties": {
+  "dataset": {
+   "type": "string"
+  },
+  "format_version": {
+   "const": 1
+  },
+  "max_age_months": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 60
+  },
+  "age_note": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "generated_on": {
+   "type": "string",
+   "format": "date"
+  },
+  "language": {
+   "const": "pl"
+  },
+  "base_url": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "emergency_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "disclaimer": {
+   "type": "string"
+  },
+  "licensing": {
+   "type": "object"
+  },
+  "sources": {
+   "type": "object",
+   "additionalProperties": {
+    "$ref": "#/$defs/source"
+   }
+  },
+  "records": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/record"
+   }
+  }
+ },
+ "$defs": {
+  "source_ref": {
+   "type": "object",
+   "required": [
+    "source_id",
+    "url"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "source_id": {
+     "type": "string"
+    },
+    "url": {
+     "type": "string"
+    },
+    "quote": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "quote_lang": {
+     "enum": [
+      "pl",
+      "en"
+     ]
+    },
+    "accessed_on": {
+     "type": [
+      "string",
+      "null"
+     ]
+    }
+   }
+  },
+  "source": {
+   "type": "object",
+   "required": [
+    "id",
+    "name",
+    "license_name",
+    "license_url",
+    "attribution"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "country": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "portal": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "license_name": {
+     "type": "string"
+    },
+    "license_url": {
+     "type": "string"
+    },
+    "conditions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "attribution": {
+     "type": "string"
+    },
+    "no_endorsement": {
+     "type": "boolean"
+    }
+   },
+   "additionalProperties": false
+  },
+  "claim": {
+   "type": "object",
+   "required": [
+    "id",
+    "text",
+    "license",
+    "sources"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "license": {
+     "enum": [
+      "CC-BY-4.0",
+      "CC-BY-SA-4.0",
+      "CC-BY-NC-4.0",
+      "CC-BY-NC-SA-4.0"
+     ]
+    },
+    "sources": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "$ref": "#/$defs/source_ref"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "origin": {
+     "enum": [
+      "międzynarodowe",
+      "pl"
+     ]
+    },
+    "urgency": {
+     "enum": [
+      "sor",
+      "lekarz"
+     ]
+    }
+   },
+   "additionalProperties": false
+  },
+  "myth": {
+   "type": "object",
+   "required": [
+    "id",
+    "claim",
+    "verdict",
+    "why_wrong",
+    "license",
+    "sources"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "license": {
+     "enum": [
+      "CC-BY-4.0",
+      "CC-BY-SA-4.0",
+      "CC-BY-NC-4.0",
+      "CC-BY-NC-SA-4.0"
+     ]
+    },
+    "sources": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "$ref": "#/$defs/source_ref"
+     }
+    },
+    "claim": {
+     "type": "string"
+    },
+    "why_wrong": {
+     "type": "string"
+    },
+    "why_believed": {
+     "type": "string"
+    },
+    "alternative": {
+     "type": "string"
+    },
+    "verdict": {
+     "enum": [
+      "fałsz",
+      "nieudowodnione",
+      "niebezpieczne"
+     ]
+    }
+   },
+   "additionalProperties": false
+  },
+  "record": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "id",
+    "slug",
+    "question",
+    "theme",
+    "age_window",
+    "path",
+    "url",
+    "last_checked",
+    "short_answer",
+    "norm",
+    "when_to_worry",
+    "urgency_panels",
+    "myths",
+    "reuse"
+   ],
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^Q[0-9]+$"
+    },
+    "slug": {
+     "type": "string"
+    },
+    "question": {
+     "type": "string"
+    },
+    "theme": {
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "norma",
+      "objaw",
+      "procedura",
+      null
+     ]
+    },
+    "involves_symptom": {
+     "type": "boolean"
+    },
+    "age_window": {
+     "type": "object",
+     "required": [
+      "from_months",
+      "to_months"
+     ],
+     "properties": {
+      "from_months": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 60
+      },
+      "to_months": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 60
+      },
+      "label": {
+       "type": [
+        "string",
+        "null"
+       ]
+      }
+     }
+    },
+    "path": {
+     "type": "string"
+    },
+    "url": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "last_checked": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "format": "date"
+    },
+    "short_answer": {
+     "type": "object",
+     "required": [
+      "text",
+      "license"
+     ],
+     "properties": {
+      "text": {
+       "type": "string"
+      },
+      "based_on": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "license": {
+       "enum": [
+        "CC-BY-4.0",
+        "CC-BY-SA-4.0",
+        "CC-BY-NC-4.0",
+        "CC-BY-NC-SA-4.0"
+       ]
+      }
+     }
+    },
+    "norm": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/claim"
+     }
+    },
+    "when_to_worry": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/claim"
+     }
+    },
+    "urgency_panels": {
+     "type": "array",
+     "minItems": 2,
+     "maxItems": 2,
+     "prefixItems": [
+      {
+       "type": "object",
+       "properties": {
+        "level": {
+         "const": "sor"
+        }
+       }
+      },
+      {
+       "type": "object",
+       "properties": {
+        "level": {
+         "const": "lekarz"
+        }
+       }
+      }
+     ],
+     "items": {
+      "type": "object",
+      "required": [
+       "level",
+       "label",
+       "claims"
+      ],
+      "properties": {
+       "level": {
+        "enum": [
+         "sor",
+         "lekarz"
+        ]
+       },
+       "label": {
+        "type": "string"
+       },
+       "claims": {
+        "type": "array",
+        "items": {
+         "$ref": "#/$defs/claim"
+        }
+       }
+      }
+     }
+    },
+    "myths": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/myth"
+     }
+    },
+    "search_phrases": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "variant_of": {
+     "type": "string"
+    },
+    "reuse": {
+     "type": "object",
+     "required": [
+      "licenses",
+      "noncommercial",
+      "sharealike",
+      "note"
+     ]
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below and keep the per-claim licences and source attributions (see LICENSE.md)."
+title: "spokojnie – czy to normalne? Open dataset of published answers on child development (Poland, 0–5 years)"
+type: dataset
+authors:
+  - family-names: Kozlowski
+    given-names: Piotr
+version: "2026-10-30"
+date-released: "2026-10-30"
+url: "https://spokojnierodzice.pl"
+repository-code: "https://github.com/pkozlowski-ui/spokojnie-dataset"
+keywords:
+  - child development
+  - parenting
+  - Poland
+  - Polish
+  - open data
+abstract: "Short, source-linked Polish answers to 'is it normal at this age?' for children 0–5 years: typical range, when to worry, when to see a doctor or call 112. Licences are set per claim (strictest source). Not medical advice."
